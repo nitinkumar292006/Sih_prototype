@@ -57,7 +57,7 @@ const activities = {
   ],
 };
 
-const serverUrl = "http://localhost:8001";
+const serverUrl = "https://sih-prototype-backend-hqt8.onrender.com";
 
 export default function MoodTracker() {
   /* ---------------- State ---------------- */

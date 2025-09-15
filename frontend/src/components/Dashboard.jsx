@@ -25,7 +25,7 @@ export default function Dashboard() {
   const [avgMood, setAvgMood] = useState("-");
   const [activityStats, setActivityStats] = useState(null);
 
-  const serverUrl = "http://localhost:8001";
+  const serverUrl = "https://sih-prototype-backend-hqt8.onrender.com";
 
   const fetchSummary = async () => {
     try {
