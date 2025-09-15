@@ -4,7 +4,7 @@ import axios from "axios";
 export const dataContext = createContext();
 
 function UserContext({ children }) {
-  const serverUrl = "https://sih-prototype-backend-hqt8.onrender.com"; // backend URL
+  const serverUrl = "http://localhost:8001"; // backend URL
 
   // user state (login info)
   const [user, setUser] = useState(() => {
