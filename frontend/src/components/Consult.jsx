@@ -27,7 +27,7 @@ export default function TherapistPage() {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const res = await axios.get("http://localhost:8001/api/me", { withCredentials: true });
+        const res = await axios.get("https://sih-prototype-backend2.onrender.com/api/me", { withCredentials: true });
         const data = res.data.user?.appointments || [];
         setAppointments(data);
         localStorage.setItem("appointments", JSON.stringify(data));
@@ -57,12 +57,12 @@ export default function TherapistPage() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:8001/api/appointment",
+        "https://sih-prototype-backend2.onrender.com/api/appointment",
         { therapist: selectedTherapist, ...formData },
         { withCredentials: true }
       );
       if (res.data.success) {
-        const updated = await axios.get("http://localhost:8001/api/me", { withCredentials: true });
+        const updated = await axios.get("https://sih-prototype-backend2.onrender.com/api/me", { withCredentials: true });
         const data = updated.data.user?.appointments || [];
         setAppointments(data);
         setSelectedTherapist(null);
@@ -79,7 +79,7 @@ export default function TherapistPage() {
   const handleCancel = async (appointmentId) => {
     try {
       const res = await axios.put(
-        `http://localhost:8001/api/appointment/${appointmentId}/cancel`,
+        `https://sih-prototype-backend2.onrender.com/api/appointment/${appointmentId}/cancel`,
         {},
         { withCredentials: true }
       );
@@ -96,7 +96,7 @@ export default function TherapistPage() {
     if (!newDate) return;
     try {
       const res = await axios.put(
-        `http://localhost:8001/api/appointment/${appointmentId}/reschedule`,
+        `https://sih-prototype-backend2.onrender.com/api/appointment/${appointmentId}/reschedule`,
         { date: newDate },
         { withCredentials: true }
       );

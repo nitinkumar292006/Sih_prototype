@@ -33,7 +33,7 @@ const ExtraInfoDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:8001/api/summary/dashboard", {
+        const res = await axios.get("https://sih-prototype-backend2.onrender.com/api/summary/dashboard", {
           withCredentials: true,
         });
         setSummary(res.data);
