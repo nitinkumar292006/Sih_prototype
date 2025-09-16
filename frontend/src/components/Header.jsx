@@ -1,16 +1,13 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { IoMdHome } from "react-icons/io";
 import { CiHeart } from "react-icons/ci";
-import { FaRobot, FaMusic } from "react-icons/fa";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { FaRobot, FaMusic, FaPaintBrush, FaUsers } from "react-icons/fa";
+import { GiHamburgerMenu, GiGamepad } from "react-icons/gi";
 import { BsGrid1X2Fill } from "react-icons/bs";
 import { FiPhoneCall } from "react-icons/fi";
+import { MdPsychology } from "react-icons/md";
 import { useContext, useState, useRef, useEffect } from "react";
 import { dataContext } from "../context/UserContext";
-import { GiGamepad } from "react-icons/gi";     // Game & Fun
-import { FaPaintBrush } from "react-icons/fa";  // Drawing Canvas
-import { FaUsers } from "react-icons/fa";       // Support Groups
-import { MdPsychology } from "react-icons/md";  // Mental Health Test
 import Logo from "../assets/Logo.webp";
 import defaultAvatar from "../assets/dp.webp";
 import axios from "axios";
@@ -56,6 +53,15 @@ function Header() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // Disable background scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [mobileMenuOpen]);
 
   return (
     <>
@@ -129,9 +135,10 @@ function Header() {
             key={i}
             to={item.path}
             className={({ isActive }) =>
-              `flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${isActive
-                ? "text-blue-600 bg-blue-100 shadow"
-                : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
+              `flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
+                isActive
+                  ? "text-blue-600 bg-blue-100 shadow"
+                  : "text-gray-700 hover:text-blue-600 hover:bg-gray-100"
               }`
             }
           >
@@ -143,23 +150,29 @@ function Header() {
 
       {/* Mobile Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-white/95 backdrop-blur-md shadow-2xl z-50 transform transition-transform duration-300 ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-          } sm:hidden`}
+        className={`fixed top-0 left-0 h-full w-64 bg-white/95 backdrop-blur-md shadow-2xl z-50 transform transition-transform duration-300 ${
+          mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+        } sm:hidden overflow-y-auto`}
       >
-        <div className="p-6 flex flex-col gap-5">
-          {menuItems.map((item, i) => (
-            <button
-              key={i}
-              onClick={() => {
-                navigate(item.path);
-                setMobileMenuOpen(false);
-              }}
-              className="flex items-center gap-3 py-3 px-4 rounded-lg text-gray-700 font-medium hover:bg-blue-100 transition"
-            >
-              <span className="text-xl text-blue-500">{item.icon}</span>
-              {item.label}
-            </button>
-          ))}
+        <div className="p-6 flex flex-col gap-5 min-h-full justify-between">
+          {/* Menu Items */}
+          <div className="flex flex-col gap-5">
+            {menuItems.map((item, i) => (
+              <button
+                key={i}
+                onClick={() => {
+                  navigate(item.path);
+                  setMobileMenuOpen(false);
+                }}
+                className="flex items-center gap-3 py-3 px-4 rounded-lg text-gray-700 font-medium hover:bg-blue-100 transition"
+              >
+                <span className="text-xl text-blue-500">{item.icon}</span>
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Auth Buttons */}
           {!user ? (
             <div className="flex flex-col gap-3 mt-6">
               <button
